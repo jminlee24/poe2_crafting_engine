@@ -56,7 +56,7 @@ class Engine {
     let modPool: Modifier[] = [];
 
     for (const pool of this.getBaseModPools(targetItem)) {
-      modPool = modPool.concat(pool.filter(material.filter));
+      modPool = modPool.concat(pool.filter((e) => material.filter(e)));
     }
 
     const totalModWeight = modPool.reduce(
