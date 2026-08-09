@@ -1,11 +1,9 @@
 import CraftingMaterial from "../crafting_material/craftingMaterial.ts";
 import { findObjByProp } from "../helper.ts";
 import { Item } from "../item/item.ts";
-import { Modifier, ModTierInfo } from "../types.ts";
+import { Modifier } from "../types.ts";
 
 class Engine {
-  constructor() {}
-
   getBaseModPools(base: Item) {
     // filter out mods to get all possible modifiers
     let possiblePrefixes: Modifier[] = [];
