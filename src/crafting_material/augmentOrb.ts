@@ -19,8 +19,6 @@ class AugOrb implements CraftingMaterial {
     const newItem = item.copy();
     return newItem;
   }
-
-  getProbability(modPool: Modifier[]) {}
 }
 
 export const augmentOrb = new AugOrb(0);
