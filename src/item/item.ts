@@ -8,7 +8,7 @@ export class Item {
   availableModifiers: ModifierData;
 
   constructor(
-    availbleModifiers: ModifierData,
+    availableModifiers: ModifierData,
     modifiers?: { prefix: Modifier[]; suffix: Modifier[] },
     tier?: ItemTier,
     metadata?: ItemMetaData,
@@ -17,7 +17,7 @@ export class Item {
       prefix: [],
       suffix: [],
     };
-    this.availableModifiers = availbleModifiers;
+    this.availableModifiers = availableModifiers;
     this.tier = tier || ItemTier.Normal;
     this.metadata = metadata || {
       maxPrefix: 0,
@@ -32,6 +32,42 @@ export class Item {
       structuredClone(this.tier),
       structuredClone(this.metadata),
     );
+  }
+}
+
+export class GenericNormalItem extends Item {
+  constructor(
+    availableModifiers: ModifierData,
+    modifiers?: { prefix: Modifier[]; suffix: Modifier[] },
+  ) {
+    super(availableModifiers, modifiers, ItemTier.Normal, {
+      maxPrefix: 0,
+      maxSuffix: 0,
+    });
+  }
+}
+
+export class GenericMagicItem extends Item {
+  constructor(
+    availableModifiers: ModifierData,
+    modifiers?: { prefix: Modifier[]; suffix: Modifier[] },
+  ) {
+    super(availableModifiers, modifiers, ItemTier.Magic, {
+      maxPrefix: 1,
+      maxSuffix: 1,
+    });
+  }
+}
+
+export class GenericRareItem extends Item {
+  constructor(
+    availableModifiers: ModifierData,
+    modifiers?: { prefix: Modifier[]; suffix: Modifier[] },
+  ) {
+    super(availableModifiers, modifiers, ItemTier.Rare, {
+      maxPrefix: 3,
+      maxSuffix: 3,
+    });
   }
 }
 
