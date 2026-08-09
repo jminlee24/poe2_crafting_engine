@@ -7,7 +7,8 @@ export type Modifier = {
 
 export type ModTierInfo = {
   ilvl: number;
-  range: number;
+  min: number;
+  max: number;
   weight: number;
 };
 

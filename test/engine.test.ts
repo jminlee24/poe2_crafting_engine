@@ -1,54 +1,97 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import Engine from "../src/engine/engine.ts";
+import { Modifier, ItemTier } from "../src/types.ts";
+import { Item } from "../src/item/item.ts";
+import { augmentOrb } from "../src/crafting_material/augmentOrb.ts";
 
-function createModifier(id: number, weight: number) {
-  return {
-    id,
-    tiers: [{ weight }],
-  } as any;
-}
-
-function createItem(overrides: Record<string, unknown> = {}) {
-  return {
-    availableModifiers: {
-      prefix: {},
-      suffix: {},
-    },
-    modifiers: {
-      prefix: [],
-      suffix: [],
-    },
-    metadata: {
-      maxPrefix: 3,
-      maxSuffix: 3,
-    },
-    ...overrides,
-  } as any;
-}
-
-test("getBaseModPools returns available modifiers that are not already on the item", () => {
+test("getBaseModPools returns empty prefix modifiers if prefixes are full", () => {
   const engine = new Engine();
 
-  const prefixA = createModifier(1, 10);
-  const prefixB = createModifier(2, 20);
-  const suffixA = createModifier(3, 30);
+  const prefixA: Modifier = {
+    name: "prefixA",
+    id: 1,
+    tiers: [{ weight: 10, ilvl: 1, min: 0, max: 10 }],
+    tag: "prefixA",
+  };
 
-  const base = createItem({
-    availableModifiers: {
+  const prefixB: Modifier = {
+    name: "prefixB",
+    id: 2,
+    tiers: [{ weight: 20, ilvl: 1, min: 0, max: 10 }],
+    tag: "prefixB",
+  };
+
+  const suffixA: Modifier = {
+    name: "suffixA",
+    id: 3,
+    tiers: [{ weight: 30, ilvl: 1, min: 0, max: 10 }],
+    tag: "suffixA",
+  };
+
+  const base = new Item(
+    {
       prefix: {
         "base prefix": [prefixA, prefixB],
-        "base suffix": [suffixA],
       },
       suffix: {
         "base suffix": [suffixA],
       },
     },
-    modifiers: {
+    {
       prefix: [prefixA],
       suffix: [],
     },
-  });
+    ItemTier.Magic,
+    { maxPrefix: 1, maxSuffix: 1 },
+  );
+
+  const [prefixes, suffixes] = engine.getBaseModPools(base);
+
+  assert.deepStrictEqual(prefixes, []);
+  assert.deepStrictEqual(suffixes, [suffixA]);
+});
+
+test("getBaseModPools returns available modifiers that are not already on the item", () => {
+  const engine = new Engine();
+
+  const prefixA: Modifier = {
+    name: "prefixA",
+    id: 1,
+    tiers: [{ weight: 10, ilvl: 1, min: 0, max: 10 }],
+    tag: "prefixA",
+  };
+
+  const prefixB: Modifier = {
+    name: "prefixB",
+    id: 2,
+    tiers: [{ weight: 20, ilvl: 1, min: 0, max: 10 }],
+    tag: "prefixB",
+  };
+
+  const suffixA: Modifier = {
+    name: "suffixA",
+    id: 3,
+    tiers: [{ weight: 30, ilvl: 1, min: 0, max: 10 }],
+    tag: "suffixA",
+  };
+
+  const base = new Item(
+    {
+      prefix: {
+        "base prefix": [prefixA, prefixB],
+      },
+      suffix: {
+        "base suffix": [suffixA],
+      },
+    },
+    {
+      prefix: [prefixA],
+      suffix: [],
+    },
+    ItemTier.Rare,
+    { maxPrefix: 3, maxSuffix: 3 },
+  );
 
   const [prefixes, suffixes] = engine.getBaseModPools(base);
 
@@ -59,24 +102,34 @@ test("getBaseModPools returns available modifiers that are not already on the it
 test("getBaseModPools uses the suffix modifier pool from the suffix available-modifier object", () => {
   const engine = new Engine();
 
-  const prefixA = createModifier(1, 10);
-  const suffixA = createModifier(2, 20);
+  const prefixA: Modifier = {
+    name: "prefixA",
+    id: 1,
+    tiers: [{ weight: 10, ilvl: 1, min: 0, max: 10 }],
+    tag: "prefixA",
+  };
 
-  const base = createItem({
-    availableModifiers: {
+  const suffixA: Modifier = {
+    name: "suffixA",
+    id: 2,
+    tiers: [{ weight: 20, ilvl: 1, min: 0, max: 10 }],
+    tag: "suffixA",
+  };
+
+  const base = new Item(
+    {
       prefix: {
         "base prefix": [prefixA],
-        "base suffix": [],
       },
       suffix: {
         "base suffix": [suffixA],
       },
     },
-    modifiers: {
+    {
       prefix: [],
       suffix: [],
     },
-  });
+  );
 
   const [, suffixes] = engine.getBaseModPools(base);
 
@@ -86,36 +139,40 @@ test("getBaseModPools uses the suffix modifier pool from the suffix available-mo
 test("calculateProbability uses the target tier weight over the total weight of the filtered mod pool", () => {
   const engine = new Engine();
 
-  const targetModifier = createModifier(101, 10);
-  const otherModifier = createModifier(102, 20);
-  const suffixModifier = createModifier(103, 5);
+  const targetModifier: Modifier = {
+    name: "target",
+    id: 101,
+    tiers: [{ weight: 10, ilvl: 1, min: 0, max: 10 }],
+    tag: "target",
+  };
 
-  const base = createItem();
+  const otherModifier: Modifier = {
+    name: "other",
+    id: 102,
+    tiers: [{ weight: 20, ilvl: 1, min: 0, max: 10 }],
+    tag: "other",
+  };
 
-  const material = {
-    effects: () =>
-      createItem({
-        availableModifiers: {
-          prefix: {
-            "base prefix": [targetModifier, otherModifier],
-            "base suffix": [],
-          },
-          suffix: {
-            "base suffix": [suffixModifier],
-          },
-        },
-        modifiers: {
-          prefix: [],
-          suffix: [],
-        },
-      }),
-    filter: () => true,
-  } as any;
+  const suffixModifier: Modifier = {
+    name: "suffix",
+    id: 103,
+    tiers: [{ weight: 5, ilvl: 1, min: 0, max: 10 }],
+    tag: "suffix",
+  };
+
+  const base = new Item({
+    prefix: {
+      "base prefix": [targetModifier, otherModifier],
+    },
+    suffix: {
+      "base suffix": [suffixModifier],
+    },
+  });
 
   const result = engine.calculateProbability(
     base,
     [{ id: targetModifier.id, tier: 1 }],
-    material,
+    augmentOrb,
   );
 
   assert.deepStrictEqual(result, [

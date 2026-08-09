@@ -17,7 +17,6 @@ class Engine {
     // 6.685 % chance that a rolled prefix is a chrono roll prefix pool is estimated 3150 -> implies each tier has a roughly 450 weight adde to the pool
     // 6.685 % chance that a rolled suffix is also a chrono roll suffix pool is estimated 4700 -> Implies each tier has a roughly 470 weight added to the pool
     //
-    // TODO: desecration
     //
     if (!("base prefix" in base.availableModifiers.prefix)) {
       throw new Error(`No base prefixes found for ${Item.name}`);
@@ -30,12 +29,13 @@ class Engine {
     // full prefix/suffix means the mod pool would be empty
     if (base.modifiers.prefix.length < base.metadata.maxPrefix) {
       possiblePrefixes = base.availableModifiers.prefix["base prefix"].filter(
-        (e) => !base.modifiers.prefix.includes(e),
+        (e) => !base.modifiers.prefix.some((mod) => mod.id === e.id),
       );
     }
+
     if (base.modifiers.suffix.length < base.metadata.maxSuffix) {
-      possibleSuffixes = base.availableModifiers.prefix["base suffix"].filter(
-        (e) => !base.modifiers.suffix.includes(e),
+      possibleSuffixes = base.availableModifiers.suffix["base suffix"].filter(
+        (e) => !base.modifiers.suffix.some((mod) => mod.id === e.id),
       );
     }
 
