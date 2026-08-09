@@ -1,0 +1,161 @@
+{
+  "prefix": [
+    {
+      "name": "+# to maximum Life",
+      "tag": "Life",
+      "mod": [{ "ilvl": 1, "range": 1, "weight": 1 }]
+    },
+    {
+      "name": "% increased maximum Life",
+      "tag": "Life",
+      "mod": [{ "ilvl": 1, "range": 1, "weight": 1 }]
+    },
+    {
+      "name": "+# to maximum Mana",
+      "tag": "Mana",
+      "mod": [{ "ilvl": 1, "range": 1, "weight": 1 }]
+    },
+    {
+      "name": "% increased maximum Mana",
+      "tag": "Mana",
+      "mod": [{ "ilvl": 1, "range": 1, "weight": 1 }]
+    },
+    {
+      "name": "+# to maximum Energy Shield",
+      "tag": "Energy Shield",
+      "mod": [{ "ilvl": 1, "range": 1, "weight": 1 }]
+    },
+    {
+      "name": "% increased Armour",
+      "tag": "Armour",
+      "mod": [{ "ilvl": 1, "range": 1, "weight": 1 }]
+    },
+    {
+      "name": "% increased Evasion Rating",
+      "tag": "Evasion",
+      "mod": [{ "ilvl": 1, "range": 1, "weight": 1 }]
+    },
+    {
+      "name": "% increased maximum Energy Shield",
+      "tag": "Energy Shield",
+      "mod": [{ "ilvl": 1, "range": 1, "weight": 1 }]
+    },
+    {
+      "name": "+# to Accuracy Rating",
+      "tag": "Attack",
+      "mod": [{ "ilvl": 1, "range": 1, "weight": 1 }]
+    },
+    {
+      "name": "% increased Rarity of Items found",
+      "tag": "Rarity",
+      "mod": [{ "ilvl": 1, "range": 1, "weight": 1 }]
+    },
+    {
+      "name": "+# to Spirit",
+      "tag": "Spirit",
+      "mod": [{ "ilvl": 1, "range": 1, "weight": 1 }]
+    },
+    {
+      "name": "% increased Spell Damage",
+      "tag": "Damage Caster",
+      "mod": [{ "ilvl": 1, "range": 1, "weight": 1 }]
+    }
+  ],
+  "suffix": [
+    {
+      "name": "+# to Strength",
+      "tag": "Attribute",
+      "mod": [{ "ilvl": 1, "range": 1, "weight": 1 }]
+    },
+    {
+      "name": "+# to Dexterity",
+      "tag": "Attribute",
+      "mod": [{ "ilvl": 1, "range": 1, "weight": 1 }]
+    },
+    {
+      "name": "+# to Intelligence",
+      "tag": "Attribute",
+      "mod": [{ "ilvl": 1, "range": 1, "weight": 1 }]
+    },
+    {
+      "name": "+# to all Attributes",
+      "tag": "Attribute",
+      "mod": [{ "ilvl": 1, "range": 1, "weight": 1 }]
+    },
+    {
+      "name": "#% to Fire Resistance",
+      "tag": "Elemental Fire Resistance",
+      "mod": [{ "ilvl": 1, "range": 1, "weight": 1 }]
+    },
+    {
+      "name": "#% to Cold Resistance",
+      "tag": "Elemental Cold Resistance",
+      "mod": [{ "ilvl": 1, "range": 1, "weight": 1 }]
+    },
+    {
+      "name": "#% to Lightning Resistance",
+      "tag": "Elemental Lightning Resistance",
+      "mod": [{ "ilvl": 1, "range": 1, "weight": 1 }]
+    },
+    {
+      "name": "#% to all Elemental Resistances",
+      "tag": "Elemental Fire Cold Lightning Resistance",
+      "mod": [{ "ilvl": 1, "range": 1, "weight": 1 }]
+    },
+    {
+      "name": "#% to Chaos Resistance",
+      "tag": "Chaos Resistance",
+      "mod": [{ "ilvl": 1, "range": 1, "weight": 1 }]
+    },
+    {
+      "name": "+# to Level of all Spell Skills",
+      "tag": "Caster Gem",
+      "mod": [{ "ilvl": 1, "range": 1, "weight": 1 }]
+    },
+    {
+      "name": "+# to Level of all Minion Skills",
+      "tag": "Minion Gem",
+      "mod": [{ "ilvl": 1, "range": 1, "weight": 1 }]
+    },
+    {
+      "name": "+# to Level of all Melee Skills",
+      "tag": "Attack",
+      "mod": [{ "ilvl": 1, "range": 1, "weight": 1 }]
+    },
+    {
+      "name": "+# to Level of all Projectile Skills",
+      "tag": "Attack",
+      "mod": [{ "ilvl": 1, "range": 1, "weight": 1 }]
+    },
+    {
+      "name": "# Life Regeneration per second",
+      "tag": "Life",
+      "mod": [{ "ilvl": 1, "range": 1, "weight": 1 }]
+    },
+    {
+      "name": "% increased Mana Regeneration Rate",
+      "tag": "Mana",
+      "mod": [{ "ilvl": 1, "range": 1, "weight": 1 }]
+    },
+    {
+      "name": "% increased Critical Hit Chance",
+      "tag": "Critical",
+      "mod": [{ "ilvl": 1, "range": 1, "weight": 1 }]
+    },
+    {
+      "name": "% increased Critical Damage Bonus",
+      "tag": "Damage Critical",
+      "mod": [{ "ilvl": 1, "range": 1, "weight": 1 }]
+    },
+    {
+      "name": "% increased Rarity of Items found",
+      "tag": "Rarity",
+      "mod": [{ "ilvl": 1, "range": 1, "weight": 1 }]
+    },
+    {
+      "name": "% of Damage taken Recouped as Life",
+      "tag": "Life",
+      "mod": [{ "ilvl": 1, "range": 1, "weight": 1 }]
+    }
+  ]
+}
