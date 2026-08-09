@@ -2,7 +2,12 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import Engine from "../src/engine/engine.ts";
 import { Modifier, ItemTier } from "../src/types.ts";
-import { Item } from "../src/item/item.ts";
+import {
+  Item,
+  GenericMagicItem,
+  GenericNormalItem,
+  GenericRareItem,
+} from "../src/item/item.ts";
 import { augmentOrb } from "../src/crafting_material/augmentOrb.ts";
 
 test("getBaseModPools returns empty prefix modifiers if prefixes are full", () => {
@@ -29,7 +34,7 @@ test("getBaseModPools returns empty prefix modifiers if prefixes are full", () =
     tag: "suffixA",
   };
 
-  const base = new Item(
+  const base = new GenericMagicItem(
     {
       prefix: {
         "base prefix": [prefixA, prefixB],
@@ -42,8 +47,6 @@ test("getBaseModPools returns empty prefix modifiers if prefixes are full", () =
       prefix: [prefixA],
       suffix: [],
     },
-    ItemTier.Magic,
-    { maxPrefix: 1, maxSuffix: 1 },
   );
 
   const [prefixes, suffixes] = engine.getBaseModPools(base);
@@ -76,7 +79,7 @@ test("getBaseModPools returns available modifiers that are not already on the it
     tag: "suffixA",
   };
 
-  const base = new Item(
+  const base = new GenericRareItem(
     {
       prefix: {
         "base prefix": [prefixA, prefixB],
@@ -89,8 +92,6 @@ test("getBaseModPools returns available modifiers that are not already on the it
       prefix: [prefixA],
       suffix: [],
     },
-    ItemTier.Rare,
-    { maxPrefix: 3, maxSuffix: 3 },
   );
 
   const [prefixes, suffixes] = engine.getBaseModPools(base);
@@ -116,7 +117,7 @@ test("getBaseModPools uses the suffix modifier pool from the suffix available-mo
     tag: "suffixA",
   };
 
-  const base = new Item(
+  const base = new GenericRareItem(
     {
       prefix: {
         "base prefix": [prefixA],
@@ -160,7 +161,7 @@ test("calculateProbability uses the target tier weight over the total weight of 
     tag: "suffix",
   };
 
-  const base = new Item({
+  const base = new GenericRareItem({
     prefix: {
       "base prefix": [targetModifier, otherModifier],
     },
