@@ -2,8 +2,8 @@ import { Item } from "../item/item.ts";
 import { ItemTier, Modifier } from "../types.ts";
 import CraftingMaterial from "./craftingMaterial.ts";
 
-class AugOrb implements CraftingMaterial {
-  tiers: ItemTier[] = [ItemTier.Magic];
+class ExOrb implements CraftingMaterial {
+  tiers: ItemTier[] = [ItemTier.Rare];
   minIlvl: number;
 
   constructor(ilvl: number) {
@@ -21,6 +21,6 @@ class AugOrb implements CraftingMaterial {
   }
 }
 
-export const augmentOrb = new AugOrb(0);
-export const greaterAugOrb = new AugOrb(46);
-export const perfectAugOrb = new AugOrb(72);
+export const exaltedOrb = new ExOrb(0);
+export const greaterExaltedOrb = new ExOrb(35);
+export const perfectExaltedOrb = new ExOrb(50);

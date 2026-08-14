@@ -2,6 +2,7 @@ import CraftingMaterial from "../crafting_material/craftingMaterial.ts";
 import { findObjByProp } from "../helper.ts";
 import { Item } from "../item/item.ts";
 import { Modifier } from "../types.ts";
+import { Craft } from "./craft.ts";
 
 class Engine {
   getBaseModPools(base: Item) {
@@ -40,6 +41,24 @@ class Engine {
     return [possiblePrefixes, possibleSuffixes];
   }
 
+  // This calculates the number of different base items (ie: if the item changes before a mod is applied)
+  // Exists because of chaos orbs and crafted modifiers, where the base item state may change since a modifier
+  // is removed before a new one is added
+  getAllPossibleOutputItems(base: Item, material: CraftingMaterial): Item[] {
+    const ret: Item[] = material.effects(base);
+
+    return ret;
+  }
+
+  getAllPossibleMods(
+    base: Item,
+    material: CraftingMaterial,
+    pool: Modifier[],
+  ): Modifier[] {
+    const modPool: Modifier[] = [];
+    return modPool;
+  }
+
   calculateProbability(
     base: Item,
     targets: { id: number; tier: number }[],
@@ -51,11 +70,12 @@ class Engine {
     const probabilities = [];
 
     const targetItem = material.effects(base);
-    let modPool: Modifier[] = [];
 
-    for (const pool of this.getBaseModPools(targetItem)) {
-      modPool = modPool.concat(pool.filter((e) => material.filter(e)));
-    }
+    // TODO: use getAllPossibleMods(base, craftingItem)
+    // after getting the total modpool
+    //
+    const baseModPool = this.getBaseModPools(targetItem).flat();
+    const modPool = this.getAllPossibleMods(targetItem, material, baseModPool);
 
     const totalModWeight = modPool.reduce(
       (acc, curr) =>

@@ -20,7 +20,7 @@ class TransOrb implements CraftingMaterial {
     newItem.tier = ItemTier.Magic;
     newItem.metadata.maxPrefix = 1;
     newItem.metadata.maxSuffix = 1;
-    return newItem;
+    return [newItem];
   }
 }
 

@@ -9,6 +9,8 @@ export default interface CraftingMaterial {
   filter(mod: Modifier): Modifier;
 
   // any side effects of the material being applied to the item
-  // ie. rarity upgrade, new modifiers, etc
-  effects(item: Item): Item;
+  // returns a list of different possible item states
+  // ie. rarity upgrade, removed modifiers, etc:
+  // CANNOT AFFECT THE MOD,
+  effects(item: Item): Item[];
 }
