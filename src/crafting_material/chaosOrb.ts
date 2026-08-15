@@ -1,6 +1,7 @@
 import { Item } from "../item/item.ts";
 import { ItemTier, Modifier } from "../types.ts";
 import CraftingMaterial from "./craftingMaterial.ts";
+import { remove_prefix, remove_suffix } from "./helper/effects.ts";
 import { ilvlFilter } from "./helper/filters.ts";
 
 class ChaosOrb implements CraftingMaterial {
@@ -17,23 +18,11 @@ class ChaosOrb implements CraftingMaterial {
   }
 
   effects(item: Item) {
-    const ret: Item[] = [];
+    let ret: Item[] = [];
     // remove prefixes if possible
-    for (const mod of item.modifiers.prefix) {
-      const newItem = item.copy();
-      newItem.modifiers.prefix = newItem.modifiers.prefix.filter(
-        (m) => m.id != mod.id,
-      );
-      ret.push(newItem);
-    }
+    ret = ret.concat(remove_prefix(item));
     // suffixes if possible
-    for (const mod of item.modifiers.suffix) {
-      const newItem = item.copy();
-      newItem.modifiers.suffix = newItem.modifiers.suffix.filter(
-        (m) => m.id != mod.id,
-      );
-      ret.push(newItem);
-    }
+    ret = ret.concat(remove_suffix(item));
     return ret;
   }
 }
