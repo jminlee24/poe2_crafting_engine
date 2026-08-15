@@ -1,6 +1,7 @@
 import { Item } from "../item/item.ts";
 import { ItemTier, Modifier } from "../types.ts";
 import CraftingMaterial from "./craftingMaterial.ts";
+import { ilvlFilter } from "./helper/filters.ts";
 
 class AugOrb implements CraftingMaterial {
   tiers: ItemTier[] = [ItemTier.Magic];
@@ -11,8 +12,7 @@ class AugOrb implements CraftingMaterial {
   }
 
   filter(mod: Modifier) {
-    mod.tiers = mod.tiers.filter((e) => e.ilvl >= this.minIlvl);
-    return mod;
+    return ilvlFilter(mod, this.minIlvl);
   }
 
   effects(item: Item) {

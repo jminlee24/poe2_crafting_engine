@@ -1,8 +1,19 @@
 import Engine from "../src/engine/engine.ts";
 import { Modifier } from "../src/types.ts";
-import { GenericMagicItem, GenericRareItem } from "../src/item/item.ts";
+import {
+  GenericMagicItem,
+  GenericNormalItem,
+  GenericRareItem,
+  Item,
+} from "../src/item/item.ts";
 import { augmentOrb } from "../src/crafting_material/augmentOrb.ts";
-import { assertEquals } from "@std/assert";
+import {
+  assertArrayIncludes,
+  assertEquals,
+  assertLessOrEqual,
+  assertNotEquals,
+} from "@std/assert";
+import { chaosOrb } from "../src/crafting_material/chaosOrb.ts";
 
 Deno.test(
   "getBaseModPools returns empty prefix modifiers if prefixes are full",
@@ -177,8 +188,10 @@ Deno.test(
 
     assertEquals(augmentOrb.minIlvl, 0);
 
+    const item = engine.getAllPossibleOutputItems(base, augmentOrb)[0];
+
     const result = engine.calculateProbability(
-      base,
+      item,
       [{ id: targetModifier.id, tier: 1 }],
       augmentOrb,
     );
@@ -189,5 +202,62 @@ Deno.test(
         probability: 10 / 35,
       },
     ]);
+  },
+);
+
+Deno.test(
+  "chaos orb effect on an item with 3 modifiers should output 3 unique items",
+  () => {
+    const engine = new Engine();
+
+    const targetModifier: Modifier = {
+      name: "target",
+      id: 101,
+      tiers: [{ weight: 10, ilvl: 1, min: 0, max: 10 }],
+      tag: "target",
+    };
+
+    const otherModifier: Modifier = {
+      name: "other",
+      id: 102,
+      tiers: [{ weight: 20, ilvl: 1, min: 0, max: 10 }],
+      tag: "other",
+    };
+
+    const suffixModifier: Modifier = {
+      name: "suffix",
+      id: 103,
+      tiers: [{ weight: 5, ilvl: 1, min: 0, max: 10 }],
+      tag: "suffix",
+    };
+
+    const base = new GenericRareItem(
+      {
+        prefix: {
+          "base prefix": [targetModifier, otherModifier],
+        },
+        suffix: {
+          "base suffix": [otherModifier, suffixModifier],
+        },
+      },
+      {
+        prefix: [targetModifier, otherModifier],
+        suffix: [otherModifier],
+      },
+    );
+
+    const out = engine.getAllPossibleOutputItems(base, chaosOrb);
+
+    assertEquals(out.length, 3);
+    assertNotEquals(out[0].modifiers, out[1].modifiers);
+    assertNotEquals(out[1].modifiers, out[2].modifiers);
+    assertNotEquals(out[2].modifiers, out[0].modifiers);
+
+    for (const item of out) {
+      assertEquals(
+        item.modifiers.prefix.length + item.modifiers.suffix.length,
+        2,
+      );
+    }
   },
 );

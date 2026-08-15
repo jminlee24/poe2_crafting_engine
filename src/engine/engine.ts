@@ -55,8 +55,7 @@ class Engine {
     material: CraftingMaterial,
     pool: Modifier[],
   ): Modifier[] {
-    const modPool: Modifier[] = [];
-    return modPool;
+    return pool;
   }
 
   calculateProbability(
@@ -69,13 +68,8 @@ class Engine {
   }[] {
     const probabilities = [];
 
-    const targetItem = material.effects(base);
-
-    // TODO: use getAllPossibleMods(base, craftingItem)
-    // after getting the total modpool
-    //
-    const baseModPool = this.getBaseModPools(targetItem).flat();
-    const modPool = this.getAllPossibleMods(targetItem, material, baseModPool);
+    const baseModPool: Modifier[] = this.getBaseModPools(base).flat();
+    const modPool = this.getAllPossibleMods(base, material, baseModPool);
 
     const totalModWeight = modPool.reduce(
       (acc, curr) =>

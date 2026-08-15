@@ -1,6 +1,7 @@
 import { Item } from "../item/item.ts";
 import { ItemTier, Modifier } from "../types.ts";
 import CraftingMaterial from "./craftingMaterial.ts";
+import { ilvlFilter } from "./helper/filters.ts";
 
 class ChaosOrb implements CraftingMaterial {
   tiers: ItemTier[] = [ItemTier.Rare];
@@ -11,7 +12,7 @@ class ChaosOrb implements CraftingMaterial {
   }
 
   filter(mod: Modifier) {
-    mod.tiers = mod.tiers.filter((e) => e.ilvl >= this.minIlvl);
+    ilvlFilter(mod, this.minIlvl);
     return mod;
   }
 
@@ -38,5 +39,5 @@ class ChaosOrb implements CraftingMaterial {
 }
 
 export const chaosOrb = new ChaosOrb(0);
-export const greaterChaosOrb = new ChaosOrb(46);
-export const perfectChaosOrb = new ChaosOrb(72);
+export const greaterChaosOrb = new ChaosOrb(35);
+export const perfectChaosOrb = new ChaosOrb(50);

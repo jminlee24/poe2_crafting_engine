@@ -1,3 +1,5 @@
+import { Item } from "./item/item.ts";
+
 export type Modifier = {
   name: string;
   tag: string;
@@ -28,3 +30,8 @@ export enum ItemTier {
   Rare = 3,
   Unique = 4,
 }
+
+export type CraftOuptut = {
+  item: Item,
+  probability: number
+}[];
