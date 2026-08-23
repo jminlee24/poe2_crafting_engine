@@ -1,5 +1,5 @@
 {
-  "name": "@joshl/poe2-crafting-engine",
+  "name": "@shadowpants24/poe2-crafting-engine",
   "version": "0.1.1",
   "exports": "./src/mod.ts",
   "tasks": {
