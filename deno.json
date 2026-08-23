@@ -1,4 +1,7 @@
 {
+  "name": "@joshl/poe2-crafting-engine",
+  "version": "0.1.1",
+  "exports": "./src/mod.ts",
   "tasks": {
     "dev": "deno run --watch --allow-net src/index.ts"
   },
