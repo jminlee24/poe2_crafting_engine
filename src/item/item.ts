@@ -1,5 +1,5 @@
 import { Modifier, ModifierData, ItemTier, ItemMetaData } from "../types.ts";
-import bootModifiers from "../../data/boots_int1.json" with { type: "json" };
+import bootModifiers from "../../scraper/data/boots_int.json" with { type: "json" };
 
 export class Item {
   tier: ItemTier;

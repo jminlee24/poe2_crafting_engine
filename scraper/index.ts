@@ -2,7 +2,7 @@ import { chromium } from "npm:playwright";
 import { Poe2DbScraper, type ModifierData } from "./scraper.ts";
 
 const browser = await chromium.launch({
-  headless: true,
+  headless: false,
 });
 
 try {
