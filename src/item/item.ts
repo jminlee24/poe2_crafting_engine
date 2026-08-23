@@ -1,5 +1,4 @@
 import { Modifier, ModifierData, ItemTier, ItemMetaData } from "../types.ts";
-import bootModifiers from "../../scraper/data/boots_int.json" with { type: "json" };
 
 export class Item {
   tier: ItemTier;
@@ -68,16 +67,5 @@ export class GenericRareItem extends Item {
       maxPrefix: 3,
       maxSuffix: 3,
     });
-  }
-}
-
-export class Boots extends Item {
-  readonly baseType = "Boots";
-
-  constructor(
-    modifiers?: { prefix: Modifier[]; suffix: Modifier[] },
-    tier?: ItemTier,
-  ) {
-    super(bootModifiers as unknown as ModifierData, modifiers, tier);
   }
 }
