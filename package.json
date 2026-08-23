@@ -2,7 +2,5 @@
   "type": "module",
   "devDependencies": {
     "tsx": "^4.23.11"
-  },
-  "name": "",
-  "version": ""
+  }
 }
